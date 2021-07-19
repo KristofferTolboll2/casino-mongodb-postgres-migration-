@@ -22,17 +22,17 @@ export class Everymatrixes extends BaseEntity {
   @Column()
   fpp: number;
 
-  // @Column()
-  // restrictedTerritories?: string[];
+  @Column('text', { array: true })
+  restrictedTerritories?: string[];
 
   @Column()
   contentProvider: string;
 
-  // @Column()
-  // langauges?: string[];
+  @Column('text', { array: true })
+  langauges?: string[];
 
-  // @Column()
-  // currencies?: string[];
+  @Column('text', { array: true })
+  currencies?: string[];
 
   @Column()
   description?: string;
@@ -58,23 +58,23 @@ export class Everymatrixes extends BaseEntity {
   @Column()
   defaultCoin?: string;
 
-  // @Column()
-  // terminal?: string[];
+  @Column('text', { array: true })
+  terminal?: string[];
 
-  // @Column()
-  // jurisdictions?: string[];
+  @Column('text', { array: true })
+  jurisdictions?: string[];
 
-  // @Column()
-  // freeSpin?: {
-  //   support: boolean;
-  //   supportFeatureBonus: boolean;
-  // };
+  @Column({ type: 'jsonb' })
+  freeSpin?: {
+    support: boolean;
+    supportFeatureBonus: boolean;
+  };
 
-  // @Column()
-  // hitFrequency?: {
-  //   min: number;
-  //   max: number;
-  // };
+  @Column({ type: 'jsonb' })
+  hitFrequency?: {
+    min: number;
+    max: number;
+  };
 
   @Column()
   coefficient?: number;
@@ -121,24 +121,24 @@ export class Everymatrixes extends BaseEntity {
   @Column()
   payout?: number;
 
-  // @Column()
-  // topPrize?: number[];
+  @Column({ type: 'int', array: true })
+  topPrize?: number[];
 
-  // @Column()
-  // defaultMaxBet?: {
-  //   EUR: number;
-  // };
+  @Column({ type: 'jsonb' })
+  defaultMaxBet?: {
+    EUR: number;
+  };
 
   @Column()
   defaultMaxMultiplier?: number;
 
-  // @Column()
-  // categories: string[];
+  @Column({ type: 'text', array: true })
+  categories: string[];
 
-  // @Column()
-  // defaultMaxWin?: {
-  //   EUR: number;
-  // };
+  @Column({ type: 'jsonb' })
+  defaultMaxWin?: {
+    EUR: number;
+  };
 
   @Column()
   highStakeValue: boolean;
@@ -152,14 +152,14 @@ export class Everymatrixes extends BaseEntity {
   @Column()
   gameBundleID: string;
 
-  // @Column()
-  // category?: {
-  //   category: string;
-  //   invoicingGroup: string;
-  // };
+  @Column({ type: 'jsonb' })
+  category?: {
+    category: string;
+    invoicingGroup: string;
+  };
 
-  // @Column({ unique: true })
-  // article: Articles;
+  @Column({ type: 'jsonb', unique: true })
+  article: Articles;
 
   gameNumber?: number;
 }

@@ -69,6 +69,6 @@ export class Articles extends BaseEntity {
   @Column({ type: 'text' })
   'ic-header': string;
 
-  // @Column({ type: 'text' })
-  // everymatrix?: Everymatrixes;
+  @Column({ type: 'jsonb' })
+  everymatrix?: Everymatrixes;
 }

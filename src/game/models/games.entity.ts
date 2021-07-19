@@ -37,23 +37,23 @@ export class Games extends BaseEntity {
   @Column()
   devices: string;
 
-  // @Column()
-  // providers: Providers[];
+  @Column({ type: 'jsonb', array: true })
+  providers: Providers[];
 
   @Column()
   gameReel: string;
 
   gameNumber?: number;
 
-  // @Column({ type: 'array' })
-  // features: [string];
+  @Column({ type: 'text', array: true })
+  features: string[];
 
-  // @Column()
-  // themes: string[];
+  @Column({ type: 'text', array: true })
+  themes: string[];
 
-  // @Column()
-  // objects: string[];
+  @Column({ type: 'text', array: true })
+  objects: string[];
 
-  // @Column()
-  // others: string[];
+  @Column({ type: 'text', array: true })
+  others: string[];
 }

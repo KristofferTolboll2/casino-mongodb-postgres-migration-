@@ -21,11 +21,11 @@ export class Casinos extends BaseEntity {
   @Column()
   company: string;
 
-  // @Column()
-  // jurisdiction: string[];
+  @Column('text', { array: true })
+  jurisdiction: string[];
 
-  // @Column()
-  // licenses: string[];
+  @Column('text', { array: true })
+  licenses: string[];
 
   @Column()
   yearEstablished: number;
@@ -39,27 +39,27 @@ export class Casinos extends BaseEntity {
   @Column()
   maxDeposit: number;
 
-  // @Column()
-  // currency: string[];
+  @Column('text', { array: true })
+  currency: string[];
 
   @Column()
   minWithdrawal: number;
 
-  // @Column()
-  // langaugesSupported: string[];
+  @Column('text', { array: true })
+  langaugesSupported: string[];
 
   @Column()
   affiliateUrl: string;
 
-  // @Column()
-  // depositMethods: string[];
+  @Column('text', { array: true })
+  depositMethods: string[];
 
-  // @Column()
-  // withdrawalMethods: string[];
+  @Column('text', { array: true })
+  withdrawalMethods: string[];
 
-  // @Column()
-  // providers: Providers[];
+  @Column('text', { array: true })
+  providers: Providers[];
 
-  // @Column()
-  // games: Games[];
+  @Column('text', { array: true })
+  games: Games[];
 }

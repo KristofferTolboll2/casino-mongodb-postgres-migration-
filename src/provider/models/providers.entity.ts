@@ -28,6 +28,6 @@ export class Providers extends BaseEntity {
   @Column()
   casinoHyperLink: string;
 
-  // @Column()
-  // games: Games[];
+  @Column({ type: 'jsonb', array: true })
+  games: Games[];
 }
