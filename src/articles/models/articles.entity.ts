@@ -4,7 +4,6 @@ import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'Articles' })
 export class Articles extends BaseEntity {
-
   @Column({ type: 'text', unique: true })
   _id: string;
 
