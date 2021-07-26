@@ -27,8 +27,21 @@ export class MigrationService {
   ) {}
 
   async syncLogs() {
-    const results = await this.logModel.find();
-    if (results) {
+    const total = await this.logModel.estimatedDocumentCount();
+    console.log('total document logs', total);
+    const page = 1;
+    const limit = 10;
+    const totalPages = Math.ceil(total / limit);
+    console.log('totalPages', totalPages);
+    for (let index = 0; index <= totalPages; index++) {
+      const results = await this.logModel
+        .find()
+        .skip((page - 1) * limit)
+        .limit(limit);
+      if (results) {
+        console.log('results', JSON.stringify(results));
+        // TODO: save to postgres
+      }
     }
   }
 

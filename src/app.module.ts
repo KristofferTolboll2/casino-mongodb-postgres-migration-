@@ -17,7 +17,6 @@ import { ProviderModule } from './provider/provider.module';
 import { MigrationModule } from './migration/migration.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
-
 @Module({
   imports: [
     ScheduleModule.forRoot(),
@@ -27,12 +26,22 @@ import { MongooseModule } from '@nestjs/mongoose';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        schema: isDevlopment ? (configService.get<string>("POSTGRES_SCHEMA_DEV") || 'public') : configService.get("POSTGRES_SCHEMA_PROD"),
-        host: isDevlopment ? configService.get<string>('POSTGRES_HOST_DEV') : configService.get<string>("POSTGRES_HOST_PROD"),
+        schema: isDevlopment
+          ? configService.get<string>('POSTGRES_SCHEMA_DEV') || 'public'
+          : configService.get('POSTGRES_SCHEMA_PROD'),
+        host: isDevlopment
+          ? configService.get<string>('POSTGRES_HOST_DEV')
+          : configService.get<string>('POSTGRES_HOST_PROD'),
         port: configService.get<number>('POSTGRES_PORT'),
-        username: isDevlopment ? configService.get<string>('POSTGRES_USER_DEV') : configService.get<string>("POSTGRES_USER_PROD"),
-        password: isDevlopment ? configService.get<string>('POSTGRES_PASSWORD_DEV') : configService.get<string>("POSTGRES_PASSWORD_PROD"),
-        database: isDevlopment ? configService.get<string>('POSTGRES_DATABASE_DEV') : configService.get<string>("POSTGRES_DATABASE_PROD"),
+        username: isDevlopment
+          ? configService.get<string>('POSTGRES_USER_DEV')
+          : configService.get<string>('POSTGRES_USER_PROD'),
+        password: isDevlopment
+          ? configService.get<string>('POSTGRES_PASSWORD_DEV')
+          : configService.get<string>('POSTGRES_PASSWORD_PROD'),
+        database: isDevlopment
+          ? configService.get<string>('POSTGRES_DATABASE_DEV')
+          : configService.get<string>('POSTGRES_DATABASE_PROD'),
         entities: [join(__dirname, '**', '*.entity{.ts,.js}')],
         synchronize: true,
       }),
@@ -57,4 +66,4 @@ import { MongooseModule } from '@nestjs/mongoose';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
