@@ -13,6 +13,8 @@ import { GameModule } from './game/game.module';
 import { KeywordsModule } from './keywords/keywords.module';
 import { LoggingModule } from './logging/logging.module';
 import { ProviderModule } from './provider/provider.module';
+import { MigrationModule } from './migration/migration.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -32,6 +34,13 @@ import { ProviderModule } from './provider/provider.module';
         synchronize: true,
       }),
     }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (config: ConfigService) => ({
+        uri: config.get('DB_URI'),
+      }),
+      inject: [ConfigService],
+    }),
     ArticlesModule,
     CasinoModule,
     EveryMatrixModule,
@@ -40,6 +49,7 @@ import { ProviderModule } from './provider/provider.module';
     KeywordsModule,
     LoggingModule,
     ProviderModule,
+    MigrationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
