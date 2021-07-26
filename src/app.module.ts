@@ -12,9 +12,11 @@ import { FutureGamesModule } from './future-games/future-games.module';
 import { GameModule } from './game/game.module';
 import { KeywordsModule } from './keywords/keywords.module';
 import { LoggingModule } from './logging/logging.module';
+import { ENV, isDevlopment } from './main';
 import { ProviderModule } from './provider/provider.module';
 import { MigrationModule } from './migration/migration.module';
 import { MongooseModule } from '@nestjs/mongoose';
+
 
 @Module({
   imports: [
@@ -25,11 +27,12 @@ import { MongooseModule } from '@nestjs/mongoose';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get('POSTGRES_HOST'),
+        schema: isDevlopment ? (configService.get<string>("POSTGRES_SCHEMA_DEV") || 'public') : configService.get("POSTGRES_SCHEMA_PROD"),
+        host: isDevlopment ? configService.get<string>('POSTGRES_HOST_DEV') : configService.get<string>("POSTGRES_HOST_PROD"),
         port: configService.get<number>('POSTGRES_PORT'),
-        username: configService.get('POSTGRES_USER'),
-        password: configService.get('POSTGRES_PASSWORD'),
-        database: configService.get('POSTGRES_DATABASE'),
+        username: isDevlopment ? configService.get<string>('POSTGRES_USER_DEV') : configService.get<string>("POSTGRES_USER_PROD"),
+        password: isDevlopment ? configService.get<string>('POSTGRES_PASSWORD_DEV') : configService.get<string>("POSTGRES_PASSWORD_PROD"),
+        database: isDevlopment ? configService.get<string>('POSTGRES_DATABASE_DEV') : configService.get<string>("POSTGRES_DATABASE_PROD"),
         entities: [join(__dirname, '**', '*.entity{.ts,.js}')],
         synchronize: true,
       }),
@@ -54,4 +57,4 @@ import { MongooseModule } from '@nestjs/mongoose';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
