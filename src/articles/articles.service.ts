@@ -29,6 +29,10 @@ export class ArticlesService {
     this.ICRobticsApiKey = this.configService.get<string>('ICROBOTICS_API_KEY');
   }
 
+  async save(data) {
+    return await this.articleModel.save(data);
+  }
+
   async makeICRoboticsRequest(contentId: number) {
     const url = `${this.ICRoboticsURL}/${this.ICRoboticsTemplateNumber}/generate`;
     try {

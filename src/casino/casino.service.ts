@@ -11,6 +11,10 @@ export class CasinoService {
     private readonly casinoModel: Repository<Casinos>,
   ) {}
 
+  async save(data) {
+    return await this.casinoModel.save(data);
+  }
+
   private mapIRoboticsCasinos(casinos: Casinos[]): IRobotics[][] {
     const mappedCasinos = casinos.map((casino) => {
       return casinoDataTypeMapper(casino);

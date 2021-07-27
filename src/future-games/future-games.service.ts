@@ -24,6 +24,14 @@ export class FutureGamesService {
     );
   }
 
+  async save(data) {
+    return await this.futureGameModel.save(data);
+  }
+
+  async saveLastScraped(data) {
+    return await this.lastScrapedDateModel.save(data);
+  }
+
   async findExpiredFutureGames() {
     const parsedDate = moment().toDate();
     return await this.futureGameModel.find({

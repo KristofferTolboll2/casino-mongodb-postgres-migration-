@@ -17,6 +17,10 @@ export class GameService {
     this.featureFields = ['features', 'others', 'themes'];
   }
 
+  async save(data) {
+    return await this.gameModel.save(data);
+  }
+
   async getDistinct(field) {
     return await this.gameModel
       .createQueryBuilder(Games.name)

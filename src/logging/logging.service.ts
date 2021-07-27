@@ -10,6 +10,10 @@ export class LoggingService {
     private readonly loggingModel: Repository<Loggings>,
   ) {}
 
+  async saveLogs(data) {
+    return await this.loggingModel.save(data);
+  }
+
   async createArticleLog(message: string, entityName: string) {
     return await this.createLog(LoggingType.ARTICLE, message, entityName);
   }

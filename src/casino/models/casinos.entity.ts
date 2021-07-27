@@ -15,51 +15,51 @@ export class Casinos extends BaseEntity {
   @Column({ unique: true })
   title: string;
 
-  @Column({ type: String, enum: Country })
+  @Column({ type: 'text', enum: Country })
   country: Country;
 
-  @Column()
+  @Column({ nullable: true })
   company: string;
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   jurisdiction: string[];
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   licenses: string[];
 
-  @Column()
+  @Column({ nullable: true })
   yearEstablished: number;
 
-  @Column()
+  @Column({ nullable: true })
   liveChat: boolean;
 
-  @Column()
-  minDeposit: number;
+  @Column({ nullable: true })
+  minDeposit: string;
 
-  @Column()
-  maxDeposit: number;
+  @Column({ nullable: true })
+  maxDeposit: string;
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   currency: string[];
 
-  @Column()
-  minWithdrawal: number;
+  @Column({ nullable: true })
+  minWithdrawal: string;
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   langaugesSupported: string[];
 
-  @Column()
+  @Column({ nullable: true })
   affiliateUrl: string;
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   depositMethods: string[];
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   withdrawalMethods: string[];
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   providers: Providers[];
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   games: Games[];
 }

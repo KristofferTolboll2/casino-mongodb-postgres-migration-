@@ -6,27 +6,27 @@ export class Futuregames extends BaseEntity {
   @Column({ unique: true })
   title: string;
 
-  @Column()
+  @Column({ nullable: true })
   startsAt: Date;
 
-  @Column()
+  @Column({ nullable: true })
   endsAt: Date;
 
-  @Column()
+  @Column({ nullable: true })
   color: string;
 
-  @Column()
+  @Column({ nullable: true })
   resizable: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   draggable: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   rating: string;
 
-  @Column()
+  @Column({ nullable: true })
   url: string;
 
-  @Column()
+  @Column({ nullable: true })
   RTP: string;
 }

@@ -5,9 +5,6 @@ import { Entity, Column } from 'typeorm';
 @Entity({ name: 'Providers' })
 export class Providers extends BaseEntity {
   @Column()
-  _id: string;
-
-  @Column()
   image: string;
 
   @Column({ unique: true })
@@ -25,9 +22,9 @@ export class Providers extends BaseEntity {
   @Column()
   gameHyperLink: string;
 
-  @Column()
+  @Column({ nullable: true })
   casinoHyperLink: string;
 
-  @Column({ type: 'jsonb', array: true })
+  @Column({ type: 'text', array: true })
   games: Games[];
 }

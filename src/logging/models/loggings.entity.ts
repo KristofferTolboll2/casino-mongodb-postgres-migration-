@@ -27,10 +27,10 @@ export class Loggings extends BaseEntity {
   @Column()
   message: string;
 
-  @Column()
+  @Column({ nullable: true })
   ipAddress: string;
 
-  @Column()
+  @Column({ nullable: true })
   entityName: string;
 
   @Column()

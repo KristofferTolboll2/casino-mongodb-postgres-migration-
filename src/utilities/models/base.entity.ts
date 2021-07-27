@@ -1,13 +1,17 @@
 import {
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 export abstract class BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @PrimaryColumn('text')
+  _id: string;
 
   @Column({ type: 'boolean', default: true })
   isActive: boolean;

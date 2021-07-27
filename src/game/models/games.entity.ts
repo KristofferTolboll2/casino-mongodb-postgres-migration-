@@ -7,40 +7,40 @@ export class Games extends BaseEntity {
   @Column({ unique: true })
   title: string;
 
-  @Column()
+  @Column({ nullable: true })
   image: string;
 
-  @Column()
+  @Column({ nullable: true })
   rank: number;
 
-  @Column()
+  @Column({ nullable: true })
   providerAmount: number;
 
-  @Column()
+  @Column({ nullable: true })
   RTP: string;
 
-  @Column()
+  @Column({ nullable: true })
   'Max Win': string;
 
-  @Column()
+  @Column({ nullable: true })
   'Min Bet': string;
 
-  @Column()
+  @Column({ nullable: true })
   volatility: string;
 
-  @Column()
+  @Column({ nullable: true })
   betways: string;
 
-  @Column()
+  @Column({ nullable: true })
   release: string;
 
-  @Column()
+  @Column({ nullable: true })
   devices: string;
 
-  @Column({ type: 'jsonb', array: true })
+  @Column({ type: 'text', array: true })
   providers: Providers[];
 
-  @Column()
+  @Column({ nullable: true })
   gameReel: string;
 
   gameNumber?: number;

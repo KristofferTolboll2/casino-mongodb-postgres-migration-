@@ -1,3 +1,9 @@
+import { ArticlesService } from 'src/articles/articles.service';
+import { FutureGamesService } from './../future-games/future-games.service';
+import { GameService } from 'src/game/game.service';
+import { CasinoService } from './../casino/casino.service';
+import { ProviderService } from './../provider/provider.service';
+import { LoggingService } from './../logging/logging.service';
 import { Game } from './schemas/game.schema';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -9,6 +15,7 @@ import { LastScapedDate } from './schemas/lastScrapedDate.scehma';
 import { Casino } from './schemas/casino.schema';
 import { Article } from './schemas/article.schema';
 import { EveryMatrix } from './schemas/everyMatrix.schema';
+import { EveryMatrixService } from 'src/every-matrix/every-matrix.service';
 
 @Injectable()
 export class MigrationService {
@@ -24,12 +31,19 @@ export class MigrationService {
     @InjectModel(Article.name) private readonly articleModel: Model<Article>,
     @InjectModel(EveryMatrix.name)
     private readonly everyMatrixModel: Model<EveryMatrix>,
+    private readonly loggingService: LoggingService,
+    private readonly providerService: ProviderService,
+    private readonly casinoService: CasinoService,
+    private readonly gameService: GameService,
+    private readonly futureGamesService: FutureGamesService,
+    private readonly articlesService: ArticlesService,
+    private readonly everyMatrixService: EveryMatrixService,
   ) {}
 
   async syncLogs() {
     const total = await this.logModel.estimatedDocumentCount();
     console.log('total document logs', total);
-    const page = 1;
+    let page = 1;
     const limit = 10;
     const totalPages = Math.ceil(total / limit);
     console.log('totalPages', totalPages);
@@ -39,51 +53,200 @@ export class MigrationService {
         .skip((page - 1) * limit)
         .limit(limit);
       if (results) {
-        console.log('results', JSON.stringify(results));
-        // TODO: save to postgres
+        // save to postgres
+        for (const logs of results) {
+          const saveResult = await this.loggingService.saveLogs(logs);
+          console.log('results', JSON.stringify(saveResult));
+        }
+        page++;
       }
     }
   }
 
   async syncProvides() {
-    const results = await this.providerModel.find();
-    if (results) {
+    const total = await this.providerModel.estimatedDocumentCount();
+    console.log('total document logs', total);
+    let page = 1;
+    const limit = 10;
+    const totalPages = Math.ceil(total / limit);
+    console.log('totalPages', totalPages);
+    for (let index = 0; index <= totalPages; index++) {
+      const results = await this.providerModel
+        .find()
+        .skip((page - 1) * limit)
+        .limit(limit);
+      if (results) {
+        // save to postgres
+        for (const logs of results) {
+          const saveResult = await this.providerService.saveProviders(logs);
+          console.log('results', JSON.stringify(saveResult));
+        }
+        page++;
+      }
     }
   }
 
   async syncCasino() {
-    const results = await this.casinoModel.find();
-    if (results) {
+    const total = await this.casinoModel.estimatedDocumentCount();
+    console.log('total document logs', total);
+    let page = 1;
+    const limit = 10;
+    const totalPages = Math.ceil(total / limit);
+    console.log('totalPages', totalPages);
+    for (let index = 0; index <= totalPages; index++) {
+      const results = await this.casinoModel
+        .find()
+        .skip((page - 1) * limit)
+        .limit(limit);
+      if (results) {
+        // save to postgres
+        for (const logs of results) {
+          try {
+            const saveResult = await this.casinoService.save(logs);
+            console.log('results', JSON.stringify(saveResult));
+          } catch (e) {
+            console.log('e', JSON.stringify(e));
+          }
+        }
+        page++;
+      }
     }
   }
 
   async syncGame() {
-    const results = await this.gameModel.find();
-    if (results) {
+    const total = await this.gameModel.estimatedDocumentCount();
+    console.log('total document logs', total);
+    let page = 1;
+    const limit = 10;
+    const totalPages = Math.ceil(total / limit);
+    console.log('totalPages', totalPages);
+    for (let index = 0; index <= totalPages; index++) {
+      const results = await this.gameModel
+        .find()
+        .skip((page - 1) * limit)
+        .limit(limit);
+      if (results) {
+        // save to postgres
+        for (const logs of results) {
+          try {
+            const saveResult = await this.gameService.save(logs);
+            console.log('results', JSON.stringify(saveResult));
+          } catch (e) {
+            console.error('e', JSON.stringify(e));
+          }
+        }
+        page++;
+      }
     }
   }
 
   async syncFutureGame() {
-    const results = await this.futureGameModel.find();
-    if (results) {
+    const total = await this.futureGameModel.estimatedDocumentCount();
+    console.log('total document logs', total);
+    let page = 1;
+    const limit = 10;
+    const totalPages = Math.ceil(total / limit);
+    console.log('totalPages', totalPages);
+    for (let index = 0; index <= totalPages; index++) {
+      const results = await this.futureGameModel
+        .find()
+        .skip((page - 1) * limit)
+        .limit(limit);
+      if (results) {
+        // save to postgres
+        for (const logs of results) {
+          try {
+            const saveResult = await this.futureGamesService.save(logs);
+            console.log('results', JSON.stringify(saveResult));
+          } catch (e) {
+            console.error('e', e.message);
+          }
+        }
+        page++;
+      }
     }
   }
 
   async syncLastScapedDate() {
-    const results = await this.lastScapedDateModel.find();
-    if (results) {
+    const total = await this.lastScapedDateModel.estimatedDocumentCount();
+    console.log('total document logs', total);
+    let page = 1;
+    const limit = 10;
+    const totalPages = Math.ceil(total / limit);
+    console.log('totalPages', totalPages);
+    for (let index = 0; index <= totalPages; index++) {
+      const results = await this.lastScapedDateModel
+        .find()
+        .skip((page - 1) * limit)
+        .limit(limit);
+      if (results) {
+        // save to postgres
+        for (const logs of results) {
+          try {
+            const saveResult = await this.futureGamesService.saveLastScraped(
+              logs,
+            );
+            console.log('results', JSON.stringify(saveResult));
+          } catch (e) {
+            console.error('e', e.message);
+          }
+        }
+        page++;
+      }
     }
   }
 
   async syncArticale() {
-    const results = await this.articleModel.find();
-    if (results) {
+    const total = await this.articleModel.estimatedDocumentCount();
+    console.log('total document logs', total);
+    let page = 1;
+    const limit = 10;
+    const totalPages = Math.ceil(total / limit);
+    console.log('totalPages', totalPages);
+    for (let index = 0; index <= totalPages; index++) {
+      const results = await this.articleModel
+        .find()
+        .skip((page - 1) * limit)
+        .limit(limit);
+      if (results) {
+        // save to postgres
+        for (const logs of results) {
+          try {
+            const saveResult = await this.articlesService.save(logs);
+            console.log('results', JSON.stringify(saveResult));
+          } catch (e) {
+            console.error('e', e.message);
+          }
+        }
+        page++;
+      }
     }
   }
 
   async syncEveryMatrix() {
-    const results = await this.everyMatrixModel.find();
-    if (results) {
+    const total = await this.everyMatrixModel.estimatedDocumentCount();
+    console.log('total document logs', total);
+    let page = 1;
+    const limit = 10;
+    const totalPages = Math.ceil(total / limit);
+    console.log('totalPages', totalPages);
+    for (let index = 0; index <= totalPages; index++) {
+      const results = await this.everyMatrixModel
+        .find()
+        .skip((page - 1) * limit)
+        .limit(limit);
+      if (results) {
+        // save to postgres
+        for (const logs of results) {
+          try {
+            const saveResult = await this.everyMatrixService.save(logs);
+            console.log('results', JSON.stringify(saveResult));
+          } catch (e) {
+            console.error('e', e.message);
+          }
+        }
+        page++;
+      }
     }
   }
 }

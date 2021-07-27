@@ -27,6 +27,10 @@ export class EveryMatrixService {
     private readonly gameService: GameService,
   ) {}
 
+  async save(data) {
+    return await this.everyMatrixModel.save(data);
+  }
+
   private readonly logger = new Logger(EveryMatrixService.name);
 
   async getFullFeedResponse(

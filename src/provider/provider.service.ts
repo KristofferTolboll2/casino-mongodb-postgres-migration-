@@ -25,6 +25,10 @@ export class ProviderService {
     this.guruCasinoUrl = this.configService.get<string>('GURU_CASINO_BASE_URL');
   }
 
+  async saveProviders(data) {
+    return await this.providerModel.save(data);
+  }
+
   //populate to retrieve all relations
   async getFullProviders(offset: number, limit: number) {
     const provider = await this.providerModel.find({

@@ -130,7 +130,7 @@ const dataTypeMapper = (key: string, value: any): IRobotics => {
 
 export const casinoDataTypeMapper = (model: Casinos): IRobotics[] => {
   const parsedCasino = model;
-  const Id = parsedCasino.id;
+  const Id = parsedCasino._id;
   const entries = _.flatMap(
     Object.entries(parsedCasino).map(([key, value], _index) => {
       return dataTypeMapper(key, value);

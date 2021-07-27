@@ -13,6 +13,14 @@ import {
   LastScrapedDateSchema,
 } from './schemas/lastScrapedDate.scehma';
 import { EveryMatrix, EveryMatrixSchema } from './schemas/everyMatrix.schema';
+import { ArticlesModule } from 'src/articles/articles.module';
+import { CasinoModule } from 'src/casino/casino.module';
+import { EveryMatrixModule } from 'src/every-matrix/every-matrix.module';
+import { FutureGamesModule } from 'src/future-games/future-games.module';
+import { GameModule } from 'src/game/game.module';
+import { KeywordsModule } from 'src/keywords/keywords.module';
+import { LoggingModule } from 'src/logging/logging.module';
+import { ProviderModule } from 'src/provider/provider.module';
 
 @Module({
   imports: [
@@ -26,6 +34,14 @@ import { EveryMatrix, EveryMatrixSchema } from './schemas/everyMatrix.schema';
       { name: Article.name, schema: ArticleSchema },
       { name: EveryMatrix.name, schema: EveryMatrixSchema },
     ]),
+    ArticlesModule,
+    CasinoModule,
+    EveryMatrixModule,
+    FutureGamesModule,
+    GameModule,
+    KeywordsModule,
+    LoggingModule,
+    ProviderModule,
   ],
   controllers: [MigrationController],
   providers: [MigrationService],
