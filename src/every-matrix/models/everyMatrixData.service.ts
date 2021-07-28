@@ -18,7 +18,7 @@ export interface EveryMatrixEntry {
   langauges?: string[];
   currencies?: string[];
   description?: string;
-  vendorID?: string;
+  vendorID?: number;
   vendorDisplayName: string;
   gameBundleID: string;
   creationTime?: string;
@@ -27,7 +27,7 @@ export interface EveryMatrixEntry {
   width?: number;
   height?: number;
   license?: string;
-  defaultCoin?: string;
+  defaultCoin?: number;
   terminal?: string[];
   jurisdictions?: string[];
   report?: {
@@ -168,7 +168,7 @@ export class EveryMatrixDataService {
           width: number;
           height: number;
           license: string;
-          defaultCoin: string;
+          defaultCoin: number;
           terminal: string[];
           jurisdictions: string[];
           freeSpin: { support: boolean; supportFeatureBonus: boolean };
@@ -215,7 +215,7 @@ export class EveryMatrixDataService {
         const playURL = entry.data.url;
         //const { support, supportFeatureBonus } = entry.data.property.freespin;
 
-        const vendorID: string = entry.data.vendorID;
+        const vendorID: number = entry.data.vendorID;
         const vendorDisplayName: string = entry.data.vendorDisplayName;
         const gameBundleID: string = entry.data.gameBundleID;
         const payout = entry.data.theoreticalPayOut;

@@ -10,155 +10,155 @@ export class Everymatrixes extends BaseEntity {
   @Column({ unique: true })
   everyMatrixId: number;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   thumbnail: string;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   logo: string;
 
-  @Column()
+  @Column({ type: 'integer', nullable: true })
   ftp: number;
 
-  @Column()
+  @Column({ type: 'double precision', nullable: true })
   fpp: number;
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   restrictedTerritories?: string[];
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   contentProvider: string;
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   langauges?: string[];
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   currencies?: string[];
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   description?: string;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   creationTime?: string;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   lastModified?: string;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   newGameExpiryTime?: string;
 
-  @Column()
+  @Column({ type: 'integer', nullable: true })
   width?: number;
 
-  @Column()
+  @Column({ type: 'integer', nullable: true })
   height?: number;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   license?: string;
 
-  @Column()
-  defaultCoin?: string;
+  @Column({ type: 'integer', nullable: true })
+  defaultCoin?: number;
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   terminal?: string[];
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   jurisdictions?: string[];
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'jsonb', nullable: true })
   freeSpin?: {
     support: boolean;
     supportFeatureBonus: boolean;
   };
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'jsonb', nullable: true })
   hitFrequency?: {
     min: number;
     max: number;
   };
 
-  @Column()
+  @Column({ type: 'double precision', nullable: true })
   coefficient?: number;
 
-  @Column()
+  @Column({ type: 'double precision', nullable: true })
   ranking?: number;
 
-  @Column()
+  @Column({ type: 'boolean', nullable: true })
   fun?: boolean;
 
-  @Column()
+  @Column({ type: 'boolean', nullable: true })
   anonymity?: boolean;
 
-  @Column()
+  @Column({ type: 'boolean', nullable: true })
   realMoney?: boolean;
 
-  @Column()
+  @Column({ type: 'boolean', nullable: true })
   jackpotType?: string;
 
-  @Column()
+  @Column({ type: 'double precision', nullable: true })
   jackpotContribution?: number;
 
-  @Column()
+  @Column({ type: 'double precision', nullable: true })
   jackpotContributionEnable?: boolean;
 
-  @Column()
+  @Column({ type: 'double precision', nullable: true })
   bonusContribution?: number;
 
-  @Column()
+  @Column({ type: 'boolean', nullable: true })
   overridable?: boolean;
 
-  @Column()
+  @Column({ type: 'boolean', nullable: true })
   excluded?: boolean;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   gameName?: string;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   shortName?: string;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   playURL?: string;
 
-  @Column()
+  @Column({ type: 'double precision', nullable: true })
   payout?: number;
 
-  @Column({ type: 'int', array: true })
+  @Column({ type: 'integer', array: true, nullable: true })
   topPrize?: number[];
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'jsonb', nullable: true })
   defaultMaxBet?: {
     EUR: number;
   };
 
-  @Column()
+  @Column({ type: 'double precision', nullable: true })
   defaultMaxMultiplier?: number;
 
-  @Column({ type: 'text', array: true })
+  @Column({ type: 'text', array: true, nullable: true })
   categories: string[];
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'jsonb', nullable: true })
   defaultMaxWin?: {
     EUR: number;
   };
 
-  @Column()
+  @Column({ type: 'boolean', nullable: true })
   highStakeValue: boolean;
 
-  @Column()
-  vendorID: string;
+  @Column({ type: 'integer', nullable: true })
+  vendorID: number;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   vendorDisplayName: string;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   gameBundleID: string;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'jsonb', nullable: true })
   category?: {
     category: string;
     invoicingGroup: string;
   };
 
-  @Column({ type: 'jsonb', unique: true })
+  @Column({ type: 'jsonb', nullable: true })
   article: Articles;
 
   gameNumber?: number;

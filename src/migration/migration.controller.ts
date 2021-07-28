@@ -7,6 +7,6 @@ export class MigrationController {
 
   @Get()
   async testLogs() {
-    return await this.migrationService.syncFutureGame();
+    return await this.migrationService.syncEveryMatrix();
   }
 }
