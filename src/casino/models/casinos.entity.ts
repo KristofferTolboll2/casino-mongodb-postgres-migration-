@@ -1,7 +1,7 @@
 import { Games } from 'src/game/models/games.entity';
 import { Providers } from 'src/provider/models/providers.entity';
 import { BaseEntity } from 'src/utilities/models/base.entity';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, JoinTable, ManyToMany } from 'typeorm';
 
 export enum Country {
   CANADA = 'CA',
@@ -57,9 +57,11 @@ export class Casinos extends BaseEntity {
   @Column('text', { array: true, nullable: true })
   withdrawalMethods: string[];
 
-  @Column('text', { array: true, nullable: true })
+  @ManyToMany(() => Providers)
+  @JoinTable()
   providers: Providers[];
 
-  @Column('text', { array: true, nullable: true })
+  @ManyToMany(() => Games)
+  @JoinTable()
   games: Games[];
 }

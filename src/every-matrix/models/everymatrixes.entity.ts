@@ -1,6 +1,6 @@
 import { Articles } from './../../articles/models/articles.entity';
 import { BaseEntity } from 'src/utilities/models/base.entity';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 
 @Entity({ name: 'Everymatrixes' })
 export class Everymatrixes extends BaseEntity {
@@ -91,7 +91,7 @@ export class Everymatrixes extends BaseEntity {
   @Column({ type: 'boolean', nullable: true })
   realMoney?: boolean;
 
-  @Column({ type: 'boolean', nullable: true })
+  @Column({ type: 'text', nullable: true })
   jackpotType?: string;
 
   @Column({ type: 'double precision', nullable: true })
@@ -158,8 +158,8 @@ export class Everymatrixes extends BaseEntity {
     invoicingGroup: string;
   };
 
-  @Column({ type: 'jsonb', nullable: true })
-  article: Articles;
-
   gameNumber?: number;
+
+  @OneToMany(() => Articles, (article) => article.everymatrix)
+  article: Articles;
 }

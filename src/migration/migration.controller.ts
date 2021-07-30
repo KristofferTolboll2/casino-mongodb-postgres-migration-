@@ -7,14 +7,14 @@ export class MigrationController {
 
   @Get()
   async testLogs() {
-    await this.migrationService.syncLogs();
-    await this.migrationService.syncProvides();
-    await this.migrationService.syncGame();
+    // await this.migrationService.syncLogs();
+    // await this.migrationService.syncProvides();
+    // await this.migrationService.syncGame();
     // await this.migrationService.syncCasino();
     // await this.migrationService.syncFutureGame();
     // await this.migrationService.syncLastScapedDate();
     // await this.migrationService.syncEveryMatrix();
-    // await this.migrationService.syncArticale();
+    await this.migrationService.syncArticale();
     return { OK: 'OK' };
   }
 }

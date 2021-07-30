@@ -38,7 +38,7 @@ export class MigrationService {
     private readonly futureGamesService: FutureGamesService,
     private readonly articlesService: ArticlesService,
     private readonly everyMatrixService: EveryMatrixService,
-  ) {}
+  ) { }
 
   async syncLogs() {
     const total = await this.logModel.estimatedDocumentCount();
@@ -212,6 +212,7 @@ export class MigrationService {
         // save to postgres
         for (const logs of results) {
           try {
+            console.log('results', logs);
             const saveResult = await this.articlesService.save(logs);
             console.log('results', JSON.stringify(saveResult));
           } catch (e) {
@@ -239,6 +240,7 @@ export class MigrationService {
         // save to postgres
         for (const logs of results) {
           try {
+            // console.log('results', logs);
             const saveResult = await this.everyMatrixService.save(logs);
             console.log('results', JSON.stringify(saveResult));
           } catch (e) {

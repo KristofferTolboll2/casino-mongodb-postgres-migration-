@@ -1,6 +1,6 @@
 import { Everymatrixes } from './../../every-matrix/models/everymatrixes.entity';
 import { BaseEntity } from 'src/utilities/models/base.entity';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity({ name: 'Articles' })
 export class Articles extends BaseEntity {
@@ -65,6 +65,6 @@ export class Articles extends BaseEntity {
   @Column({ type: 'text' })
   'ic-header': string;
 
-  @Column({ type: 'jsonb' })
-  everymatrix?: Everymatrixes;
+  @OneToMany(() => Everymatrixes, (everymatrix) => everymatrix.article)
+  everymatrix: Everymatrixes;
 }
