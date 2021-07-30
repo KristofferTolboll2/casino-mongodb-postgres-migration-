@@ -65,7 +65,7 @@ export class MigrationService {
 
   async syncProvides() {
     const total = await this.providerModel.estimatedDocumentCount();
-    console.log('total document logs', total);
+    console.log('total document Provider', total);
     let page = 1;
     const limit = 10;
     const totalPages = Math.ceil(total / limit);
@@ -88,7 +88,7 @@ export class MigrationService {
 
   async syncCasino() {
     const total = await this.casinoModel.estimatedDocumentCount();
-    console.log('total document logs', total);
+    console.log('total document casino', total);
     let page = 1;
     const limit = 10;
     const totalPages = Math.ceil(total / limit);
@@ -115,7 +115,7 @@ export class MigrationService {
 
   async syncGame() {
     const total = await this.gameModel.estimatedDocumentCount();
-    console.log('total document logs', total);
+    console.log('total document game', total);
     let page = 1;
     const limit = 10;
     const totalPages = Math.ceil(total / limit);
@@ -142,7 +142,7 @@ export class MigrationService {
 
   async syncFutureGame() {
     const total = await this.futureGameModel.estimatedDocumentCount();
-    console.log('total document logs', total);
+    console.log('total document Future Game', total);
     let page = 1;
     const limit = 10;
     const totalPages = Math.ceil(total / limit);
@@ -169,7 +169,7 @@ export class MigrationService {
 
   async syncLastScapedDate() {
     const total = await this.lastScapedDateModel.estimatedDocumentCount();
-    console.log('total document logs', total);
+    console.log('total document Last Scaped', total);
     let page = 1;
     const limit = 10;
     const totalPages = Math.ceil(total / limit);
@@ -198,7 +198,7 @@ export class MigrationService {
 
   async syncArticale() {
     const total = await this.articleModel.estimatedDocumentCount();
-    console.log('total document logs', total);
+    console.log('total document Articale', total);
     let page = 1;
     const limit = 10;
     const totalPages = Math.ceil(total / limit);
@@ -225,7 +225,7 @@ export class MigrationService {
 
   async syncEveryMatrix() {
     const total = await this.everyMatrixModel.estimatedDocumentCount();
-    console.log('total document logs', total);
+    console.log('total document Every Matrix', total);
     let page = 1;
     const limit = 10;
     const totalPages = Math.ceil(total / limit);

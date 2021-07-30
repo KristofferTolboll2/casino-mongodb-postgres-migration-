@@ -1,6 +1,6 @@
 import { Providers } from './../../provider/models/providers.entity';
 import { BaseEntity } from 'src/utilities/models/base.entity';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
 
 @Entity({ name: 'Games' })
 export class Games extends BaseEntity {
@@ -37,9 +37,6 @@ export class Games extends BaseEntity {
   @Column({ nullable: true })
   devices: string;
 
-  @Column({ type: 'text', array: true })
-  providers: Providers[];
-
   @Column({ nullable: true })
   gameReel: string;
 
@@ -56,4 +53,11 @@ export class Games extends BaseEntity {
 
   @Column({ type: 'text', array: true })
   others: string[];
+
+  // @Column({ type: 'text', array: true })
+  // providers: Providers[];
+
+  @ManyToMany(() => Providers)
+  @JoinTable()
+  providers: Providers[];
 }

@@ -100,16 +100,17 @@ export class ProviderService {
       title: parsedProviderName,
     });
     // .populate('games', null, Game.name);
-    if (!foundProvider?.games) {
-      throw new HttpException(
-        'Provider does not exist',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-    const randomGames = selectRandomFromList(
-      foundProvider.games,
-      amount,
-    ) as Providers[];
+    // if (!foundProvider?.games) {
+    //   throw new HttpException(
+    //     'Provider does not exist',
+    //     HttpStatus.BAD_REQUEST,
+    //   );
+    // }
+    const randomGames = [];
+    // const randomGames = [] selectRandomFromList(
+    //  foundProvider.games,
+    //   amount,
+    // ) as Providers[];
     const randomGuruCasinoGames = randomGames.map((game) => {
       const parsedGameTitle = game.title.replace(/\s+/g, '-').toLowerCase();
       return generateRandomGuruCasinoGame(this.guruCasinoUrl, parsedGameTitle);
