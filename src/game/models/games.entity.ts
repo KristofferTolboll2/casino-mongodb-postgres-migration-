@@ -54,9 +54,6 @@ export class Games extends BaseEntity {
   @Column({ type: 'text', array: true })
   others: string[];
 
-  // @Column({ type: 'text', array: true })
-  // providers: Providers[];
-
   @ManyToMany(() => Providers)
   @JoinTable()
   providers: Providers[];

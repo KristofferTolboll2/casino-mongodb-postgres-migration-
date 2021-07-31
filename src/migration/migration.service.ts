@@ -212,9 +212,9 @@ export class MigrationService {
         // save to postgres
         for (const logs of results) {
           try {
-            console.log('results', logs);
+           // console.log('results', logs);
             const saveResult = await this.articlesService.save(logs);
-            console.log('results', JSON.stringify(saveResult));
+           // console.log('results', JSON.stringify(saveResult));
           } catch (e) {
             console.error('e', e.message);
           }

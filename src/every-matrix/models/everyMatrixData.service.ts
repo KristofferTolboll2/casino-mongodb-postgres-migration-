@@ -7,7 +7,7 @@ import { EveryMatrixService } from '../every-matrix.service';
 
 export interface EveryMatrixEntry {
   name: string;
-  article: Articles | null;
+  article: Articles[] | null;
   everyMatrixId: number;
   thumbnail?: string;
   logo?: string;

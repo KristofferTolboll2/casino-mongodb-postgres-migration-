@@ -65,6 +65,6 @@ export class Articles extends BaseEntity {
   @Column({ type: 'text' })
   'ic-header': string;
 
-  @OneToMany(() => Everymatrixes, (everymatrix) => everymatrix.article)
+  @ManyToOne(() => Everymatrixes, (everymatrix) => everymatrix.article)
   everymatrix: Everymatrixes;
 }
