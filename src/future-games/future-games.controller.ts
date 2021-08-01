@@ -1,7 +1,8 @@
 import { Controller, Get, Logger, Query } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import moment from 'moment';
 import { FutureGamesService } from './future-games.service';
-
+@ApiTags('Future Games')
 @Controller('futureGames')
 export class FutureGamesController {
   private readonly logger = new Logger(FutureGamesController.name);

@@ -1,5 +1,6 @@
+import { Games } from 'src/game/models/games.entity';
 import { BaseEntity } from 'src/utilities/models/base.entity';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, ManyToMany } from 'typeorm';
 
 @Entity({ name: 'Providers' })
 export class Providers extends BaseEntity {
@@ -24,6 +25,6 @@ export class Providers extends BaseEntity {
   @Column({ nullable: true })
   casinoHyperLink: string;
 
-  // @ManyToMany(() => Games, (games) => games.providers)
-  // games: Games[];
+  @ManyToMany(() => Games, (games) => games.providers)
+  games: Games[];
 }

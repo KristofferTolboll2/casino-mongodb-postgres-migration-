@@ -1,3 +1,4 @@
+import { Games } from 'src/game/models/games.entity';
 import { ArticlesService } from 'src/articles/articles.service';
 import { FutureGamesService } from './../future-games/future-games.service';
 import { GameService } from 'src/game/game.service';
@@ -38,7 +39,11 @@ export class MigrationService {
     private readonly futureGamesService: FutureGamesService,
     private readonly articlesService: ArticlesService,
     private readonly everyMatrixService: EveryMatrixService,
-  ) { }
+  ) {}
+
+  getJSON(data) {
+    return JSON.parse(JSON.stringify(data));
+  }
 
   async syncLogs() {
     const total = await this.logModel.estimatedDocumentCount();
@@ -55,7 +60,9 @@ export class MigrationService {
       if (results) {
         // save to postgres
         for (const logs of results) {
-          const saveResult = await this.loggingService.saveLogs(logs);
+          const saveResult = await this.loggingService.saveLogs(
+            this.getJSON(logs),
+          );
           console.log('results', JSON.stringify(saveResult));
         }
         page++;
@@ -78,7 +85,9 @@ export class MigrationService {
       if (results) {
         // save to postgres
         for (const logs of results) {
-          const saveResult = await this.providerService.saveProviders(logs);
+          const saveResult = await this.providerService.saveProviders(
+            this.getJSON(logs),
+          );
           console.log('results', JSON.stringify(saveResult));
         }
         page++;
@@ -102,7 +111,9 @@ export class MigrationService {
         // save to postgres
         for (const logs of results) {
           try {
-            const saveResult = await this.casinoService.save(logs);
+            const saveResult = await this.casinoService.save(
+              this.getJSON(logs),
+            );
             console.log('results', JSON.stringify(saveResult));
           } catch (e) {
             console.log('e', JSON.stringify(e));
@@ -129,7 +140,15 @@ export class MigrationService {
         // save to postgres
         for (const logs of results) {
           try {
-            const saveResult = await this.gameService.save(logs);
+            const data = this.getJSON(logs);
+            const newproviders = [];
+            for (const pId of data.providers) {
+              console.log(pId);
+              const pData = await this.providerService.findOneProvider(pId);
+              newproviders.push(pData);
+            }
+            data.providers = newproviders;
+            const saveResult = await this.gameService.saveGame(data);
             console.log('results', JSON.stringify(saveResult));
           } catch (e) {
             console.error('e', JSON.stringify(e));
@@ -156,7 +175,9 @@ export class MigrationService {
         // save to postgres
         for (const logs of results) {
           try {
-            const saveResult = await this.futureGamesService.save(logs);
+            const saveResult = await this.futureGamesService.save(
+              this.getJSON(logs),
+            );
             console.log('results', JSON.stringify(saveResult));
           } catch (e) {
             console.error('e', e.message);
@@ -184,7 +205,7 @@ export class MigrationService {
         for (const logs of results) {
           try {
             const saveResult = await this.futureGamesService.saveLastScraped(
-              logs,
+              this.getJSON(logs),
             );
             console.log('results', JSON.stringify(saveResult));
           } catch (e) {
@@ -212,9 +233,11 @@ export class MigrationService {
         // save to postgres
         for (const logs of results) {
           try {
-           // console.log('results', logs);
-            const saveResult = await this.articlesService.save(logs);
-           // console.log('results', JSON.stringify(saveResult));
+            // console.log('results', logs);
+            const saveResult = await this.articlesService.save(
+              this.getJSON(logs),
+            );
+            // console.log('results', JSON.stringify(saveResult));
           } catch (e) {
             console.error('e', e.message);
           }
@@ -241,7 +264,9 @@ export class MigrationService {
         for (const logs of results) {
           try {
             // console.log('results', logs);
-            const saveResult = await this.everyMatrixService.save(logs);
+            const saveResult = await this.everyMatrixService.save(
+              this.getJSON(logs),
+            );
             console.log('results', JSON.stringify(saveResult));
           } catch (e) {
             console.error('e', e.message);

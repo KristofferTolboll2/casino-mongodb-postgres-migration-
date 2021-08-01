@@ -17,7 +17,7 @@ export class GameService {
     this.featureFields = ['features', 'others', 'themes'];
   }
 
-  async save(data) {
+  async saveGame(data) {
     return await this.gameModel.save(data);
   }
 

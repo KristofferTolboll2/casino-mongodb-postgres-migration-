@@ -29,9 +29,14 @@ export class ProviderService {
     return await this.providerModel.save(data);
   }
 
+  async findOneProvider(id: string): Promise<Providers> {
+    return await this.providerModel.findOne({ _id: id });
+  }
+
   //populate to retrieve all relations
   async getFullProviders(offset: number, limit: number) {
     const provider = await this.providerModel.find({
+      relations: ['games'],
       skip: offset,
       take: limit,
     });
@@ -99,18 +104,15 @@ export class ProviderService {
     const foundProvider = await this.providerModel.findOne({
       title: parsedProviderName,
     });
-    // .populate('games', null, Game.name);
+    console.log(foundProvider);
     // if (!foundProvider?.games) {
     //   throw new HttpException(
     //     'Provider does not exist',
     //     HttpStatus.BAD_REQUEST,
     //   );
     // }
-    const randomGames = [];
-    // const randomGames = [] selectRandomFromList(
-    //  foundProvider.games,
-    //   amount,
-    // ) as Providers[];
+
+    const randomGames = selectRandomFromList([], amount) as Providers[];
     const randomGuruCasinoGames = randomGames.map((game) => {
       const parsedGameTitle = game.title.replace(/\s+/g, '-').toLowerCase();
       return generateRandomGuruCasinoGame(this.guruCasinoUrl, parsedGameTitle);

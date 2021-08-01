@@ -57,11 +57,11 @@ export class Casinos extends BaseEntity {
   @Column('text', { array: true, nullable: true })
   withdrawalMethods: string[];
 
-  @ManyToMany(() => Providers)
-  @JoinTable()
-  providers: Providers[];
+  // @ManyToMany(() => Providers)
+  // @JoinTable()
+  // providers: Providers[];
 
-  @ManyToMany(() => Games)
-  @JoinTable()
-  games: Games[];
+  // @ManyToMany(() => Games)
+  // @JoinTable()
+  // games: Games[];
 }

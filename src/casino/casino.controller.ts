@@ -6,9 +6,10 @@ import {
   Param,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CasinoService } from './casino.service';
 import { Country } from './models/casinos.entity';
-
+@ApiTags('Casinos')
 @Controller('casinos')
 export class CasinoController {
   constructor(private readonly casinoService: CasinoService) {}

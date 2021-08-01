@@ -1,6 +1,6 @@
 import { Providers } from './../../provider/models/providers.entity';
 import { BaseEntity } from 'src/utilities/models/base.entity';
-import { Entity, Column, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
 
 @Entity({ name: 'Games' })
 export class Games extends BaseEntity {
@@ -54,7 +54,9 @@ export class Games extends BaseEntity {
   @Column({ type: 'text', array: true })
   others: string[];
 
-  @ManyToMany(() => Providers)
+  @ManyToMany(() => Providers, (providers) => providers.games, {
+    cascade: true,
+  })
   @JoinTable()
   providers: Providers[];
 }

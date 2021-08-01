@@ -5,13 +5,13 @@ import {
   Param,
   Query,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GameService } from 'src/game/game.service';
 import { FullResponseDTO } from './dto/fullResponse.dto';
 import { SearchEveryMatrixDTO } from './dto/searchEveryMatrix.dto';
 import { EveryMatrixService } from './every-matrix.service';
 import { everyMatrixDescriptions } from './everyMatrix.description';
-
+@ApiTags('Every Matrix')
 @Controller('everyMatrix')
 export class EveryMatrixController {
   constructor(
