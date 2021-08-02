@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 import { Articles } from './models/articles.entity';
 import * as chalk from 'chalk';
 import axios from 'axios';
-
+import mongoose, { Types } from 'mongoose';
 @Injectable()
 export class ArticlesService {
   private ICRoboticsURL: string;
@@ -54,7 +54,6 @@ export class ArticlesService {
   async getArticleByEveryMatrixName(name: string) {
     console.log({ value: name });
     const document = await this.everyMatrixService.getEveryMatrixByName(name);
-
     if (!document) {
       const message = `Could not find game with name ${name}`;
       const mongoResponse = await this.loggingService.createArticleLog(
@@ -67,7 +66,7 @@ export class ArticlesService {
     //console.log(document)
     console.log('after document');
     const id = document.everyMatrixId;
-    console.log(id);
+    console.log('id', id);
     return await this.getArticleById(id);
   }
 
@@ -75,6 +74,8 @@ export class ArticlesService {
   async updateArticle(existingArticle: Articles, newArticle: Articles) {
     const oneWeekAgo = new Date().getDate() - 7;
     if (new Date(existingArticle['ic-timestamp']).getDate() >= oneWeekAgo) {
+      const newId = new Types.ObjectId();
+      newArticle._id = newId._id.toString();
       const updatedModel = await this.articleModel.save(newArticle);
       return updatedModel;
     } else {
@@ -87,7 +88,7 @@ export class ArticlesService {
       everyMatrixId,
     );
 
-    const existingArticle: Articles | null = await this.articleModel.findOne({
+    const existingArticle: Articles = await this.articleModel.findOne({
       everymatrix: everyMatrixModel,
     });
 
@@ -102,7 +103,7 @@ export class ArticlesService {
       //TODO test and implement updateArticle function
       return await this.updateArticle(existingArticle, article);
     }
-    console.log(article);
+    // console.log(article);
     article['everymatrix'] = everyMatrixModel;
     const articleModel = this.articleModel.save(article);
     return articleModel;
@@ -112,7 +113,7 @@ export class ArticlesService {
     //contentId is the same as everyMatrixId in the database
     console.log('in get article');
     const responseData: Articles = await this.makeICRoboticsRequest(id);
-    console.log(responseData);
+    // console.log('responseData', responseData);
     const mongoResponse = await this.persistArticle(responseData, id);
     return mongoResponse;
   }

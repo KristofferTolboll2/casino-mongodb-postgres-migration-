@@ -93,6 +93,8 @@ export class GameService {
   }
 
   async getGameByTitle(title: string, popualte: boolean) {
+    console.log('title', title);
+    console.log('popualte', popualte);
     if (!popualte) {
       const game = await this.gameModel.findOne({ title });
       return game;
@@ -100,7 +102,7 @@ export class GameService {
       const populatedGame = await this.gameModel.findOne(
         { title },
         {
-          select: ['providers', 'image', 'title', 'rank'],
+          select: ['image', 'title', 'rank'],
         },
       );
       return populatedGame;

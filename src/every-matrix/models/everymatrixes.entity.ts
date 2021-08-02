@@ -1,6 +1,6 @@
 import { Articles } from './../../articles/models/articles.entity';
 import { BaseEntity } from 'src/utilities/models/base.entity';
-import { Entity, Column, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 
 @Entity({ name: 'Everymatrixes' })
 export class Everymatrixes extends BaseEntity {

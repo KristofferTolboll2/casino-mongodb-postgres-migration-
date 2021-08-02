@@ -38,7 +38,7 @@ export class EveryMatrixService {
     offset: number,
   ): Promise<FullFeedResponseDTO[]> {
     const foundEveryMatrixDocuments = await this.getEveryMatrix(offset, limit);
-    console.log(foundEveryMatrixDocuments.length);
+    console.log('foundEveryMatrixDocuments', foundEveryMatrixDocuments.length);
     const mappedResonse = Promise.all(
       foundEveryMatrixDocuments.map(async (everyMatrixDocument, index) => {
         everyMatrixDocument.gameNumber = index + 1;
@@ -46,7 +46,7 @@ export class EveryMatrixService {
           everyMatrixDocument.gameName,
           true,
         );
-        console.log(mappedResonse);
+        // console.log('foundGame', foundGame);
 
         let parsedGame;
         if (foundGame) {
