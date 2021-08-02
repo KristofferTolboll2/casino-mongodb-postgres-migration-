@@ -134,6 +134,7 @@ export class IRoboticsEveryMatrix {
   }
 
   static createFromeData(item: Everymatrixes) {
+    console.log('item', item);
     const values = Object.entries(item).map((entry) => {
       return this.createFromEntry(entry);
     });

@@ -204,7 +204,7 @@ export class EveryMatrixService {
           true,
         );
 
-        let parsedGame: Games | null = null;
+        let parsedGame: Games = null;
         if (foundGame) {
           parsedGame = this.trimGameValues(
             this.renameObjectKey(foundGame, [
