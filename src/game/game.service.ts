@@ -1,7 +1,7 @@
 import { Games } from './models/games.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 import {
   IRobotics,
   providerDataTypeMapperWrapper,
@@ -13,12 +13,23 @@ export class GameService {
 
   constructor(
     @InjectRepository(Games) private readonly gameModel: Repository<Games>,
+    private connection: Connection,
   ) {
     this.featureFields = ['features', 'others', 'themes'];
   }
 
   async saveGame(data) {
     return await this.gameModel.save(data);
+  }
+
+  async findAllGamesByPId(id: string): Promise<Games[]> {
+    const games = await this.connection
+      .getRepository(Games)
+      .createQueryBuilder('games')
+      .leftJoinAndSelect('games.providers', id)
+      .getMany();
+    // console.log(games);
+    return games;
   }
 
   async getDistinct(field) {

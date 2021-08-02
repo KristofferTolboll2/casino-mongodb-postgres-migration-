@@ -1,3 +1,4 @@
+import { GameService } from 'src/game/game.service';
 import { Repository } from 'typeorm';
 import { Providers } from './models/providers.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
@@ -21,6 +22,7 @@ export class ProviderService {
     private readonly configService: ConfigService,
     @InjectRepository(Providers)
     private readonly providerModel: Repository<Providers>,
+    private readonly gameService: GameService,
   ) {
     this.guruCasinoUrl = this.configService.get<string>('GURU_CASINO_BASE_URL');
   }
@@ -36,11 +38,15 @@ export class ProviderService {
   //populate to retrieve all relations
   async getFullProviders(offset: number, limit: number) {
     const provider = await this.providerModel.find({
-      relations: ['games'],
       skip: offset,
       take: limit,
     });
-    //   .populate('games', null, Game.name);
+
+    // for (const index in provider) {
+    //   provider[index]['gamesall'] = this.gameService.findAllGamesByPId(
+    //     provider[index]._id,
+    //   );
+    // }
 
     return provider;
   }
@@ -53,32 +59,21 @@ export class ProviderService {
 
     //remove providers from object
     const parsedProviders = providers.map((provider) => {
-      return _.omit(provider, ['games']);
+      return provider;
+      // return _.omit(provider, ['games']);
     });
 
     return parsedProviders;
   }
 
   async getRandom(amount: number) {
-    // const providers = await this.providerModel
-    //   .aggregate()
-    //   .project({
-    //     title: 1,
-    //     image: 1,
-    //     rank: 1,
-    //     gameAmount: 1,
-    //     casinoAmount: 1,
-    //     casinoHyperLink: 1,
-    //     gameHyperLink: 1,
-    //   })
-    //   .sample(amount)
-    //   .exec();
-    // const transformedProviders: IRobotics[][] = providers.map(
-    //   (provider, index) => {
-    //     return providerDataTypeMapperWrapper(provider, index);
-    //   },
-    // );
-    // return transformedProviders;
+    const providers = await this.providerModel.find({ gameAmount: amount });
+    const transformedProviders: IRobotics[][] = providers.map(
+      (provider, index) => {
+        return providerDataTypeMapperWrapper(provider, index);
+      },
+    );
+    return transformedProviders;
   }
 
   async getRoboticsProviders(
@@ -105,14 +100,17 @@ export class ProviderService {
       title: parsedProviderName,
     });
     console.log(foundProvider);
-    // if (!foundProvider?.games) {
-    //   throw new HttpException(
-    //     'Provider does not exist',
-    //     HttpStatus.BAD_REQUEST,
-    //   );
-    // }
 
-    const randomGames = selectRandomFromList([], amount) as Providers[];
+    const games = await this.gameService.findAllGamesByPId(foundProvider._id);
+
+    if (!games) {
+      throw new HttpException(
+        'Provider does not exist',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const randomGames = selectRandomFromList(games, amount) as Providers[];
     const randomGuruCasinoGames = randomGames.map((game) => {
       const parsedGameTitle = game.title.replace(/\s+/g, '-').toLowerCase();
       return generateRandomGuruCasinoGame(this.guruCasinoUrl, parsedGameTitle);
