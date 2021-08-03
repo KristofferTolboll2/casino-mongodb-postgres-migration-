@@ -12,10 +12,16 @@ export const inferredDataTypeMapper = (
   value: any,
   description: string,
 ): IRobotics => {
-  if (name == undefined || value == undefined) {
+  console.log('value 123', value);
+  if (
+    name == undefined ||
+    value == undefined ||
+    (Array.isArray(value) && value.length === 0)
+  ) {
     console.log('null');
     return null;
   }
+
   return {
     Type: createType(value),
     Name: name,
@@ -117,11 +123,14 @@ export class IRoboticsEveryMatrix {
         (entry) => entry.modelName === key,
       ).map((entry) => {
         return entry.values.map((_value) => {
-          return inferredDataTypeMapper(
-            _value.actual,
-            value[_value.key],
-            'Lorem Ipsum',
-          );
+          // check here value as we are finding _value.key, so if value null then it will throw an error
+          if (value) {
+            return inferredDataTypeMapper(
+              _value.actual,
+              value[_value.key],
+              'Lorem Ipsum',
+            );
+          }
         });
       });
     }
@@ -134,11 +143,13 @@ export class IRoboticsEveryMatrix {
   }
 
   static createFromeData(item: Everymatrixes) {
-    console.log('item', item);
     const values = Object.entries(item).map((entry) => {
       return this.createFromEntry(entry);
     });
-    const parsedValues = _.flatMap(_.flatMap(values)) as IRobotics[];
+    const newvalues = values.filter(function (e) {
+      return e != null;
+    });
+    const parsedValues = _.flatMap(_.flatMap(newvalues)) as IRobotics[];
     const IRobotics = new IRoboticsEveryMatrix(parsedValues);
     return IRobotics;
   }

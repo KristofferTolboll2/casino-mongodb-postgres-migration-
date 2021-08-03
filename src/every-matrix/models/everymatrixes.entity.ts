@@ -23,120 +23,120 @@ export class Everymatrixes extends BaseEntity {
   fpp: number;
 
   @Column('text', { array: true, nullable: true })
-  restrictedTerritories?: string[];
+  restrictedTerritories: string[];
 
   @Column({ type: 'text', nullable: true })
   contentProvider: string;
 
   @Column('text', { array: true, nullable: true })
-  langauges?: string[];
+  langauges: string[];
 
   @Column('text', { array: true, nullable: true })
-  currencies?: string[];
+  currencies: string[];
 
   @Column({ type: 'text', nullable: true })
-  description?: string;
+  description: string;
 
   @Column({ type: 'text', nullable: true })
-  creationTime?: string;
+  creationTime: string;
 
   @Column({ type: 'text', nullable: true })
-  lastModified?: string;
+  lastModified: string;
 
   @Column({ type: 'text', nullable: true })
-  newGameExpiryTime?: string;
+  newGameExpiryTime: string;
 
   @Column({ type: 'integer', nullable: true })
-  width?: number;
+  width: number;
 
   @Column({ type: 'integer', nullable: true })
-  height?: number;
+  height: number;
 
   @Column({ type: 'text', nullable: true })
-  license?: string;
+  license: string;
 
   @Column({ type: 'integer', nullable: true })
-  defaultCoin?: number;
+  defaultCoin: number;
 
   @Column('text', { array: true, nullable: true })
-  terminal?: string[];
+  terminal: string[];
 
   @Column('text', { array: true, nullable: true })
-  jurisdictions?: string[];
+  jurisdictions: string[];
 
   @Column({ type: 'jsonb', nullable: true })
-  freeSpin?: {
+  freeSpin: {
     support: boolean;
     supportFeatureBonus: boolean;
   };
 
   @Column({ type: 'jsonb', nullable: true })
-  hitFrequency?: {
+  hitFrequency: {
     min: number;
     max: number;
   };
 
   @Column({ type: 'double precision', nullable: true })
-  coefficient?: number;
+  coefficient: number;
 
   @Column({ type: 'double precision', nullable: true })
-  ranking?: number;
+  ranking: number;
 
   @Column({ type: 'boolean', nullable: true })
-  fun?: boolean;
+  fun: boolean;
 
   @Column({ type: 'boolean', nullable: true })
-  anonymity?: boolean;
+  anonymity: boolean;
 
   @Column({ type: 'boolean', nullable: true })
-  realMoney?: boolean;
+  realMoney: boolean;
 
   @Column({ type: 'text', nullable: true })
-  jackpotType?: string;
+  jackpotType: string;
 
   @Column({ type: 'double precision', nullable: true })
-  jackpotContribution?: number;
+  jackpotContribution: number;
 
   @Column({ type: 'double precision', nullable: true })
-  jackpotContributionEnable?: boolean;
+  jackpotContributionEnable: boolean;
 
   @Column({ type: 'double precision', nullable: true })
-  bonusContribution?: number;
+  bonusContribution: number;
 
   @Column({ type: 'boolean', nullable: true })
-  overridable?: boolean;
+  overridable: boolean;
 
   @Column({ type: 'boolean', nullable: true })
-  excluded?: boolean;
+  excluded: boolean;
 
   @Column({ type: 'text', nullable: true })
-  gameName?: string;
+  gameName: string;
 
   @Column({ type: 'text', nullable: true })
-  shortName?: string;
+  shortName: string;
 
   @Column({ type: 'text', nullable: true })
-  playURL?: string;
+  playURL: string;
 
   @Column({ type: 'double precision', nullable: true })
-  payout?: number;
+  payout: number;
 
   @Column({ type: 'integer', array: true, nullable: true })
-  topPrize?: number[];
+  topPrize: number[];
 
   @Column({ type: 'jsonb', nullable: true })
-  defaultMaxBet?: {
+  defaultMaxBet: {
     EUR: number;
   };
 
   @Column({ type: 'double precision', nullable: true })
-  defaultMaxMultiplier?: number;
+  defaultMaxMultiplier: number;
 
   @Column({ type: 'text', array: true, nullable: true })
   categories: string[];
 
   @Column({ type: 'jsonb', nullable: true })
-  defaultMaxWin?: {
+  defaultMaxWin: {
     EUR: number;
   };
 
@@ -153,7 +153,7 @@ export class Everymatrixes extends BaseEntity {
   gameBundleID: string;
 
   @Column({ type: 'jsonb', nullable: true })
-  category?: {
+  category: {
     category: string;
     invoicingGroup: string;
   };

@@ -42,16 +42,16 @@ export class Games extends BaseEntity {
 
   gameNumber?: number;
 
-  @Column({ type: 'text', array: true })
+  @Column({ type: 'jsonb', array: true })
   features: string[];
 
-  @Column({ type: 'text', array: true })
+  @Column({ type: 'jsonb', array: true })
   themes: string[];
 
-  @Column({ type: 'text', array: true })
+  @Column({ type: 'jsonb', array: true })
   objects: string[];
 
-  @Column({ type: 'text', array: true })
+  @Column({ type: 'jsonb', array: true })
   others: string[];
 
   @ManyToMany(() => Providers, (providers) => providers.games, {

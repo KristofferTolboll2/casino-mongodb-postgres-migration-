@@ -2,12 +2,13 @@ import { Futuregames } from './models/futuregames.entity';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { LessThan, MoreThan, Repository } from 'typeorm';
 import { LastScapedDate } from './models/lastScrapedDate.entity';
-import moment from 'moment';
+import * as moment from 'moment';
 import { parseDateToFormat } from 'src/utilities/util';
 import axios, { AxiosResponse } from 'axios';
 import { inferredDataTypeMapper } from 'src/every-matrix/parsing/IRobotics.';
+import { Types } from 'mongoose';
 
 @Injectable()
 export class FutureGamesService {
@@ -44,12 +45,8 @@ export class FutureGamesService {
     const response = await this.futureGameModel.find({
       where: [
         {
-          startsAt: {
-            $gte: startDate,
-          },
-          endsAt: {
-            $lte: endDate,
-          },
+          startsAt: MoreThan(startDate),
+          endsAt: LessThan(endDate),
         },
       ],
     });
@@ -90,8 +87,16 @@ export class FutureGamesService {
   private async getLastScrapedDate(): Promise<Date> {
     console.log('date is ');
     const lastScrapedDate = await this.lastScrapedDateModel.findOne();
+    console.log('lastScrapedDate ', lastScrapedDate);
     if (!lastScrapedDate) {
-      const result = await this.lastScrapedDateModel.save({ date: new Date() });
+      const newData = {
+        _id: '',
+        date: new Date().toISOString(),
+      };
+      const newId = new Types.ObjectId();
+      newData._id = newId._id.toString();
+      newData.date = new Date().toISOString();
+      const result = await this.lastScrapedDateModel.save(newData);
       return result.date;
     }
     return lastScrapedDate.date;

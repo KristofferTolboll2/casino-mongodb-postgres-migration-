@@ -47,7 +47,7 @@ export class CasinoService {
   }
 
   async getCasinoById(id: string) {
-    const foundCasino = await this.casinoModel.findOne(id);
+    const foundCasino = await this.casinoModel.findOne({ _id: id });
     return foundCasino;
   }
 
