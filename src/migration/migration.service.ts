@@ -39,7 +39,7 @@ export class MigrationService {
     private readonly futureGamesService: FutureGamesService,
     private readonly articlesService: ArticlesService,
     private readonly everyMatrixService: EveryMatrixService,
-  ) {}
+  ) { }
 
   getJSON(data) {
     return JSON.parse(JSON.stringify(data));
@@ -148,6 +148,7 @@ export class MigrationService {
               newproviders.push(pData);
             }
             data.providers = newproviders;
+            // console.log('data', data);
             const saveResult = await this.gameService.saveGame(data);
             console.log('results', JSON.stringify(saveResult));
           } catch (e) {
